@@ -7,7 +7,8 @@ plugins {
 
 // 의존성 설정 (루트에서 공통 설정한 것 + 웹 기능 등 이 모듈에 필요한 것)
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web' // REST API 제공
-    developmentOnly 'org.springframework.boot:spring-boot-devtools' // 개발 중 자동 재시작 등 편의 기능
-    implementation 'io.r2dbc:r2dbc-spi:1.0.0.RELEASE' // 
+    implementation 'org.springframework.boot:spring-boot-starter-web'// REST API 제공
+    implementation 'io.r2dbc:r2dbc-spi:1.0.0.RELEASE' // R2DBC SPI 명시적 추가
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
 }

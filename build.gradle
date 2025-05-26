@@ -2,7 +2,7 @@
 plugins {
     id 'java' // Java 프로젝트 플러그인
     id 'org.springframework.boot' version '3.5.0'
-    id 'io.spring.dependency-management' version '1.1.7' apply false // Spring 의존성 BOM 관리용 플러그인
+    id 'io.spring.dependency-management' version '1.1.7' // Spring 의존성 BOM 관리용 플러그인
 }
 
 // 전체 프로젝트(루트 + 서브모듈)에 적용할 공통 groupId / version
@@ -23,6 +23,10 @@ allprojects {
     }
 }
 
+// 루트 프로젝트가 실행 대상이 아니라면 생략 가능
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
 
 // 하위 모듈(subprojects) 전용 공통 설정
 subprojects {
