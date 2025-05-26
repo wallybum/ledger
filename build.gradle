@@ -6,7 +6,7 @@ plugins {
 }
 
 // 전체 프로젝트(루트 + 서브모듈)에 적용할 공통 groupId / version
-group = 'app.ledger'ㅇ	
+group = 'app.ledger'
 version = '0.0.1-SNAPSHOT'
 
 // Java 버전 설정: Java 21을 toolchain으로 지정 (로컬 JDK와 무관하게 빌드 가능)
