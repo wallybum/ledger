@@ -1,12 +1,12 @@
 // 루트 프로젝트의 공통 플러그인 정의 (각 서브모듈에서 선택적으로 적용할 수 있도록 apply false 사용)
 plugins {
     id 'java' // Java 프로젝트 플러그인
-    id 'org.springframework.boot' version '3.5.0' apply false // Spring Boot 플러그인 등록만 (자동 적용 X)
+    id 'org.springframework.boot' version '3.5.0'
     id 'io.spring.dependency-management' version '1.1.7' apply false // Spring 의존성 BOM 관리용 플러그인
 }
 
 // 전체 프로젝트(루트 + 서브모듈)에 적용할 공통 groupId / version
-group = 'app.ledger'
+group = 'app.ledger'ㅇ	
 version = '0.0.1-SNAPSHOT'
 
 // Java 버전 설정: Java 21을 toolchain으로 지정 (로컬 JDK와 무관하게 빌드 가능)
@@ -37,6 +37,7 @@ subprojects {
 
     // 공통 의존성 (Lombok 및 테스트 관련)
     dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
