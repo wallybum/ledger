@@ -20,11 +20,24 @@ jobs: # 작업 단위
         distribution: 'temurin'
         java-version: '21'  # 또는 프로젝트에 맞는 버전
 
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle
+
     - name: Grant execute permission to Gradle
       run: chmod +x ./gradlew # gradlew 실행 권한 부여 (Unix 환경에서 필수)
 
     - name: Build with Gradle
       run: ./gradlew build # Gradle 빌드 명령 실행 (build, test, jar 포함됨)
+
+    - name: Run tests
+      run: ./gradlew test
 
   # 추후 다음 기능 확장 고려
   # Docker 빌드 - docker build, docker push와 연동

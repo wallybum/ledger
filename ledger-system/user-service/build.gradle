@@ -1,0 +1,13 @@
+// 해당 모듈에서 실제 Spring Boot 애플리케이션 실행이 필요하므로 플러그인 적용
+plugins {
+    id 'java'
+    id 'org.springframework.boot' // Spring Boot 기능 적용
+    id 'io.spring.dependency-management' // BOM 의존성 관리
+}
+
+// 의존성 설정 (루트에서 공통 설정한 것 + 웹 기능 등 이 모듈에 필요한 것)
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web' // REST API 제공
+    developmentOnly 'org.springframework.boot:spring-boot-devtools' // 개발 중 자동 재시작 등 편의 기능
+    implementation 'io.r2dbc:r2dbc-spi:1.0.0.RELEASE' // 
+}

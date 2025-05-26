@@ -1,1 +1,9 @@
 rootProject.name = 'ledger-app'
+
+// include 'common'
+// include 'ledger-system:api-gateway'
+// include 'ledger-system:auth-service'
+// include 'ledger-system:config-service'
+// include 'ledger-system:ledger-service'
+// include 'ledger-system:notification-service'
+include 'ledger-system:user-service'

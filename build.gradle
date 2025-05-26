@@ -1,37 +1,50 @@
+// 루트 프로젝트의 공통 플러그인 정의 (각 서브모듈에서 선택적으로 적용할 수 있도록 apply false 사용)
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.5.0'
-	id 'io.spring.dependency-management' version '1.1.7'
+    id 'java' // Java 프로젝트 플러그인
+    id 'org.springframework.boot' version '3.5.0' apply false // Spring Boot 플러그인 등록만 (자동 적용 X)
+    id 'io.spring.dependency-management' version '1.1.7' apply false // Spring 의존성 BOM 관리용 플러그인
 }
 
+// 전체 프로젝트(루트 + 서브모듈)에 적용할 공통 groupId / version
 group = 'app.ledger'
 version = '0.0.1-SNAPSHOT'
 
+// Java 버전 설정: Java 21을 toolchain으로 지정 (로컬 JDK와 무관하게 빌드 가능)
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+// 모든 프로젝트에 공통 적용할 설정 (루트 포함)
+allprojects {
+    repositories {
+        mavenCentral() // 의존성 받을 저장소
+    }
 }
 
-repositories {
-	mavenCentral()
-}
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
+// 하위 모듈(subprojects) 전용 공통 설정
+subprojects {
+    apply plugin: 'java' // 모든 서브모듈은 Java 프로젝트로 인식
 
-tasks.named('test') {
-	useJUnitPlatform()
+    // annotationProcessor가 컴파일 전용에도 포함되도록 설정 (Lombok 사용 시 필수)
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    // 공통 의존성 (Lombok 및 테스트 관련)
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+
+    // JUnit5 플랫폼 사용
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
 }
