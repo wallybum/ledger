@@ -5,7 +5,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import app.ledger.user.domain.entity.User;
-
+import io.swagger.v3.oas.annotations.Hidden;
+@Hidden // Swagger 문서에 노출하지 않도록 명시
 public interface UserRepository extends JpaRepository<User, Long> {
 
     /* 회원가입 시 중복 체크 용 */
