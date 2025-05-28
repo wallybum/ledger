@@ -1,0 +1,26 @@
+server:
+  port: 8081 #서버가 실행될 포트 번호
+
+spring:
+  application:
+    name: user-service # 이 모듈의 애플리케이션 이름
+
+  datasource:
+    url: jdbc:h2:mem:testdb # 메모리 기반 H2 데이터베이스 URL (서버 종료 시 초기화)
+    driver-class-name: org.h2.Driver  # H2 전용 드라이버 클래스명
+    username: sa # 기본 사용자 이름
+    password: # 비밀번호 없음
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # 애플리케이션 시작 시 테이블 생성, 종료 시 삭제
+    show-sql: true  # SQL 쿼리 로그 출력 여부
+    properties:
+      hibernate:
+        format_sql: true  # SQL 로그 가독성 있게 정렬해서 출력
+        dialect: org.hibernate.dialect.H2Dialect # JPA(Hibernate) 가 어떤 데이터베이스에 맞춰 SQL을 생성할지 지정하는 설정
+  
+  h2:
+    console:
+      enabled: true # H2 웹 콘솔 사용 여부
+      path: /h2-console # 웹 콘솔 접속 경로 (http://localhost:8081/h2-console)

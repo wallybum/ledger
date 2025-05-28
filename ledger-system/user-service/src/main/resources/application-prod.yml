@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://prod-db-host:5432/ledgerdb # 운영용 PostgreSQL DB 주소
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME} # 운영 환경에서는 환경 변수로 주입
+    password: ${DB_PASSWORD} # Git에 절대 직접 쓰지 말고, 환경변수나 secret manager 사용
+
+  jpa:
+    hibernate:
+      ddl-auto: validate # 스키마만 검증, 자동 변경은 하지 않음
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+  sql:
+    init:
+      mode: never # 운영 환경에서 schema.sql/data.sql 자동 실행 금지
+
+server:
+  port: 8081
+
+logging:
+  level:
+    root: info
+    app.ledger.user: info
