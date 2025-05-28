@@ -17,7 +17,7 @@ dependencies {
     implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
     implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
 
-    implementation 'org.postgresql:postgresql:42.7.3'   // PostgreSQL JDBC
+    implementation 'org.postgresql:postgresql:42.7.3'   // PostgreSQL JDB
     
     //테스트용
     testImplementation 'org.mockito:mockito-core:5.12.0'
@@ -25,3 +25,22 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
 
 }
+test {
+        useJUnitPlatform() // JUnit 5 사용
+
+    testLogging {
+        events "passed", "failed", "skipped"
+        exceptionFormat "short"
+        showStandardStreams = false // System.out 출력 감춤
+    }
+
+    afterTest { desc, result ->
+        def status = result.resultType
+        def emoji = status == org.gradle.api.tasks.testing.TestResult.ResultType.SUCCESS ? "✅" :
+                    status == org.gradle.api.tasks.testing.TestResult.ResultType.FAILURE ? "❌" :
+                    "⚠️"
+
+        println "${emoji} ${desc.className} > ${desc.name} - ${status}"
+    }
+}
+// ./gradlew :ledger-system:user-service:test --console=plain --rerun-tasks    

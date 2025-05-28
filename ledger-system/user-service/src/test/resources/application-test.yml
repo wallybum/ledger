@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL #MODE는 H2를 PostgreSQL처럼 동작하게 하여 SQL 호환성을 높이고, DB_CLOSE_DELAY=-1은 테스트 도중 커넥션이 닫혀도 DB를 유지
+    driver-class-name: org.h2.Driver # H2 메모리 DB용 드라이버
+    username: sa # 기본 사용자명
+    password: # 비밀번호 없음
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # 테스트 실행 시 테이블 생성, 종료 시 삭제
+    show-sql: true # 실행되는 SQL 로그 출력
+    properties:
+      hibernate:
+        format_sql: true  # SQL 로그를 가독성 좋게 정렬
+        dialect: org.hibernate.dialect.H2Dialect 
+
+  h2:
+    console:
+      enabled: false # 테스트 환경에서는 H2 콘솔 필요 없음 (원하면 true로)
+
+logging:
+  level:
+    root: warn # 불필요한 로그 최소화
+    app.ledger: debug # 테스트 대상 모듈만 디버그로 상세 로그
